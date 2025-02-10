@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .container {
+            max-width: 100%;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow-x: auto; /* Enable horizontal scrolling for small screens */
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+        .btn-primary {
+            text-decoration: none;
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+            margin: 0 10px;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        button {
+            background: none;
+            border: none;
+            padding: 0;
+            margin: 0;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        h2 {
+            color: green;
+        }
+        table {
+            width: 75%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        tr:hover {
+            background-color: #f2f2f2;
+        }
+        /* Responsive table styles */
+        @media only screen and (max-width: 768px) {
+            table {
+                font-size: 14px;
+            }
+            th, td {
+                padding: 10px;
+            }
+        }
+        /* Animation for PIR container */
+        .pir-container {
+            display: inline-block;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+            animation-duration: 1s;
+            animation-iteration-count: infinite;
+        }
+        .pir-container.motion-detected {
+            color: red;
+            background-color: #f9c7c7;
+
+            animation-name: pulse-green;
+        }
+        .pir-container.no-motion {
+            color: green;
+            background-color: #d3f1d3;
+
+            animation-name: pulse-red;
+        }
+        @keyframes pulse-green {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        @keyframes pulse-red {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        .btn-primary {
+            text-decoration: none;
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        button {
+            background: none;
+            border: none;
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+    <script>
+        // Your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDNCjRElU1tcZNcXwue2mYSPcJYYjGeyuc",
+            authDomain: "sensordataapp-13d9a.firebaseapp.com",
+            databaseURL: "https://sensordataapp-13d9a-default-rtdb.firebaseio.com/",
+            projectId: "sensordataapp-13d9a",
+            storageBucket: "sensordataapp-13d9a.appspot.com",
+            messagingSenderId: "277009993146",
+            appId: "1:277009993146:web:24f20cb75d28983aa82183",
+            measurementId: "G-LS920MYJHW"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var sensorRef = firebase.database().ref().child('sensorData');
+
+            sensorRef.on("value", function(snapshot) {
+                var sensorData = snapshot.val();
+                var tableBody = document.getElementById('sensorDataBody');
+                tableBody.innerHTML = ''; // Clear previous data
+
+                var serialNumber = 1; // Initialize serial number counter
+
+                for (var key in sensorData) {
+                    if (sensorData.hasOwnProperty(key)) {
+                        var data = sensorData[key];
+                        var row = tableBody.insertRow();
+                        row.insertCell().innerText = serialNumber++; // Insert serial number
+                        row.insertCell().innerText = data.humidity + '%';
+                        row.insertCell().innerText = data.temperature + '°C';
+                        row.insertCell().innerText = data.heatIndex + '°C';
+                        row.insertCell().innerText = data.timestamp;
+                        var pirCell = row.insertCell();
+                        var pirContainer = document.createElement('span');
+                        pirContainer.innerText = data.pir ? 'Intruder Alert' : 'No Intruder';
+                        pirContainer.classList.add('pir-container', data.pir ? 'motion-detected' : 'no-motion');
+                        pirCell.appendChild(pirContainer);
+                    }
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <center>
+        <h1>Obstacle avoidance</h1>
+        <!-- <h2>You've logged in successfully</h2> -->
+        <div class="button-container">
+            <button><a href="graph.html" class="btn btn-primary">View Graphs</a></button>
+            <button><a href="index.html" class="btn btn-primary">Log out</a></button>
+            <button><a href="about.html" class="btn btn-primary">Project</a></button>
+            <button><a href="http://127.0.0.1:5000" class="btn btn-primary">Prediction</a></button>
+
+        </div>
+    </center>
+
+        <center>
+        <table>
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Humidity</th>
+                    <th>Temperature</th>
+                    <th>Heat Index</th>
+                    <th>Timestamp</th>
+                    <th>Motion Sensor (PIR)</th>
+                </tr>
+            </thead>
+            <tbody id="sensorDataBody">
+                <!-- Table body rows will be dynamically populated -->
+            </tbody>
+        </table></center>
+    </div>
+</body>
+</html>

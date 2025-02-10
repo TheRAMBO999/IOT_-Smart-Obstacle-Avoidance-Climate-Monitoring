@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>About our project</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="container">
+        <h1>Our Project</h1>
+        <div class="btns">
+            <figure href="" class="btn active">
+                <img src="https://i.postimg.cc/Kz1GqhFZ/web-dev-icon.png" alt="" data-id="tab-1">
+                <figcaption>objective</figcaption>
+            </figure>
+            <figure href="" class="btn">
+                <img src="https://i.postimg.cc/c4yxmzzS/web-design-icon.png" alt="" data-id="tab-2">
+                <figcaption>Motivation</figcaption>
+            </figure>
+            <figure href="" class="btn">
+                <img src="https://i.postimg.cc/WpJp0VX8/seo-icon.png" data-id="tab-3" alt="">
+                <figcaption>Sensor</figcaption>
+            </figure>
+            <figure href="" class="btn">
+                <img src="https://i.postimg.cc/nr7HxKCg/digital-marketing-icon.png" alt="" data-id="tab-4">
+                <figcaption>Data</figcaption>
+            </figure>
+
+        </div>
+
+        <div class="content active" id="tab-1">
+            <img src="https://image.freepik.com/free-vector/programming-concept-illustration_114360-1213.jpg" alt="">
+            <div class="content-info">
+                <h3 class="content-heading">objective</h3>
+                <p class="content-paragraph">
+                   <strong>Versatile Robotic Vehicle:</strong> Create a robot that can be controlled manually or drive by itself, adapting to different needs.<br>
+                    <strong> Control Functionality: </strong>Make a phone app to control the robot from anywhere easily.<br>
+                    <strong>Obstacle Avoidance Algorithms:</strong> Teach the robot to see and avoid things in its way automatically, keeping it safe as it moves.<br>
+                    <strong> Cleaning System:</strong> Add a vacuum cleaner to the robot so it can clean surfaces by itself, saving you time and effort.<br>
+                    
+            </div>
+        </div>
+
+        <div class="content" id="tab-2">
+            <img src="https://image.freepik.com/free-vector/designers-are-working-desing-web-page-web-design-user-interface-user-experience-content-organization_335657-4403.jpg"
+                alt="">
+            <div class="content-info">
+                <h3 class="content-heading">motivation</h3>
+
+                <p class="content-paragraph"> <strong> Boost:</strong>
+                    We're responding to the growing need for simplifying daily chores by automating cleaning tasks.<br>
+                <strong>Time-Saving:</strong>
+                    Automating cleaning tasks saves time and physical effort, freeing up more time for leisure or other productive activities.
+                    <br><strong> Assurance:</strong>
+                    Our autonomous obstacle avoidance ensures safer navigation, reducing the chances of accidents, especially in dynamic or low-visibility environments.
+                <br><strong> Showcase:</strong>
+                    This project demonstrates the power of robotics and automation, inspiring further advancements and innovations in the field.
+                
+                </p>
+            </div>
+        </div>
+
+        <div class="content" id="tab-3">
+            <img src="https://cdn-images-1.medium.com/max/640/1*4bAHY4SrlzfG3GXRZRgNhg.gif" alt="">
+            <div class="content-info">
+                <h3 class="content-heading">sensors used</h3>
+                <p class="content-paragraph">
+                    <strong> PIR sensor</strong> detects motion in a room, providing valuable insights into room activity. By tracking motion count and duration, we can gauge activity levels and occupancy patterns. Analyzing motion patterns over time helps adjust cleaning schedules to match peak occupancy periods. Additionally, measuring motion intensity reveals the proximity of individuals to the sensor, aiding in user presence detection.<br>
+
+<strong> ultrasonic sensor </strong>identifies obstacles during cleaning, recording their distance and location within the room. This data optimizes cleaning paths for efficiency and ensures comprehensive coverage of the entire room. By mapping coverage, the vacuum cleaner can prioritize areas needing more attention.<br>
+
+<strong> DHT sensor</strong> monitors temperature and humidity, crucial for maintaining optimal comfort and air quality. Tracking temperature trends helps identify patterns like daily variations or long-term climate changes. Monitoring humidity levels ensures a healthy environment, impacting both cleaning effectiveness and user comfort. Analyzing the temperature-humidity correlation provides insights into how environmental conditions influence cleaning performance and user satisfaction.
+
+
+
+
+
+
+
+</p>
+            </div>
+        </div>
+
+        <div class="content" id="tab-4">
+            <img src="https://polymathian.com/wp-content/uploads/sites/6/2020/01/opt-apps.png" alt="">
+            <div class="content-info">
+                <h3 class="content-heading">Data analysis</h3>
+                <p class="content-paragraph"><strong>Intruder Detection Timestamp:</strong>
+
+                    Firebase records the time when an intruder is detected, providing crucial information for security monitoring. Knowing the exact time of intrusion allows for timely response and potential investigation.
+                    <br><strong>Temperature, Heat Index, and Humidity Data:</strong>
+                    
+                    Firebase stores real-time temperature, heat index, and humidity readings, offering insights into environmental conditions. This data is essential for maintaining comfort levels and optimizing the cleaning process. For example, if the temperature rises above a certain threshold, the vacuum cleaner may adjust its cleaning schedule to avoid overheating components.
+                    <br><strong>Usefulness of Timestamps:</strong>
+                    
+                    Timestamps allow for precise event tracking, facilitating analysis of intrusion patterns over time. By identifying recurring intrusion times, users can implement additional security measures during vulnerable periods.
+                    <br><strong> of Temperature, Heat Index, and Humidity Data:</strong>
+                    
+                    Real-time environmental data enables users to monitor indoor conditions remotely and make informed decisions. For instance, if the humidity level becomes too high, indicating poor air quality, users can take steps to improve ventilation or activate air purifiers. Additionally, the heat index helps assess perceived temperature, aiding in comfort management and potentially reducing energy consumption by adjusting heating or cooling systems accordingly.</p>
+            </div>
+        </div>
+    </div>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>
+<script>
+    const container = document.querySelector('.container');
+const content = document.querySelectorAll('.content');
+const btn = document.querySelectorAll('.btn');
+
+container.addEventListener('click', (e) => {
+    const id = e.target.dataset.id;
+    
+    if(id){
+        btn.forEach( (btn) => {
+            btn.classList.remove('active');
+            e.target.parentElement.classList.add('active');
+        })
+        content.forEach( (content) =>{
+            content.classList.remove('active');
+            const contentId = document.getElementById(id)
+            contentId.classList.add('active')
+        })
+    }
+})
+
+// Got Dsigning Inspiration From Dribble
+// https://dribbble.com/shots/3693442-Tabs
+    </script>
+
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap");
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  width: 100vw;
+  min-height: 100vh;
+  padding: 5rem 0;
+  background-color: #86abd5;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style-type: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+.container {
+  max-width: 80vw;
+  background-color: #fff;
+  padding: 2rem 0;
+}
+@media only screen and (max-width: 75em) {
+  .container {
+    max-width: 70vw;
+  }
+}
+@media only screen and (max-width: 56.25em) {
+  .container {
+    max-width: 80vw;
+  }
+}
+@media only screen and (max-width: 37.5em) {
+  .container {
+    max-width: 90vw;
+  }
+}
+.container h1 {
+  font-size: 3rem;
+  font-family: inherit;
+  text-align: center;
+  padding: 2.5rem 0;
+  background-image: linear-gradient(to top, #ff0844 0%, #ffb199 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+@media only screen and (max-width: 37.5em) {
+  .container h1 {
+    font-size: 2.5rem;
+  }
+}
+
+.btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn {
+  position: relative;
+  border: 0;
+  outline: none;
+  text-align: center;
+  width: calc(100%/4);
+  background-color: #eee;
+  cursor: pointer;
+  padding: 1rem;
+}
+.btn.active {
+  background-color: #fff;
+}
+.btn img {
+  display: block;
+  margin: auto;
+  width: 9rem;
+}
+@media only screen and (max-width: 37.5em) {
+  .btn img {
+    width: 6rem;
+  }
+}
+.btn figcaption {
+  font-size: 1.8rem;
+  color: #444;
+}
+@media only screen and (max-width: 37.5em) {
+  .btn figcaption {
+    font-size: 1.4rem;
+  }
+}
+
+.content {
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+@media only screen and (max-width: 37.5em) {
+  .content {
+    text-align: center;
+  }
+}
+.content img {
+  max-width: 30rem;
+}
+@media only screen and (max-width: 75em) {
+  .content img {
+    width: 25rem;
+  }
+}
+@media only screen and (max-width: 37.5em) {
+  .content img {
+    margin: 2rem;
+    text-align: center;
+    max-width: 100%;
+  }
+}
+.content-info {
+  padding: 4rem 2rem;
+  font-size: 1.6rem;
+}
+.content-heading {
+  background-image: linear-gradient(to top, #ff0844 0%, #ffb199 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 2rem;
+  text-align: left;
+}
+.content-paragraph {
+  color: #444;
+  padding: 1rem 0;
+  line-height: 1.6;
+  text-align: left;
+}
+.content-btn {
+  padding: 0.8rem 1.5rem;
+  color: #fff;
+  background-image: linear-gradient(to top, #ff0844 0%, #ffb199 100%);
+  font-size: 1.6rem;
+  font-family: inherit;
+  border-radius: 2rem;
+  border: 0;
+  transition: all 0.3s ease;
+}
+.content-btn:focus {
+  outline: none;
+}
+.content-btn:active {
+  transform: scale(0.9);
+}
+.content-btn:hover {
+  opacity: 0.95;
+}
+.content.active {
+  background-color: #fff;
+  display: flex;
+}
+@media only screen and (max-width: 37.5em) {
+  .content.active {
+    display: block;
+  }
+}
+</style>

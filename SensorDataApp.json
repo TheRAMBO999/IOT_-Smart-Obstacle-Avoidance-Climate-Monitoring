@@ -1,0 +1,19 @@
+{
+    "sensorData": {
+      "l1": {
+        "humidity": 55,
+        "temperature": 24,
+        "heatIndex": 26,
+        "timestamp": "2024-05-18T12:34:56Z",
+        "pir": true
+      },
+      "l2": {
+        "humidity": 59,
+        "temperature": 34,
+        "heatIndex": 36,
+        "timestamp": "2024-05-18T12:34:56Z",
+        "pir": true
+      }
+    }
+  }
+  

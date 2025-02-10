@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sensor Data Graphs</title>
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .graph {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sensor Data Graphs</h1>
+        <div id="humidityGraph" class="graph"></div>
+        <div id="temperatureGraph" class="graph"></div>
+        <div id="heatIndexGraph" class="graph"></div>
+        <div id="motionGraph" class="graph"></div>
+    </div>
+
+    <script>
+        // Your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDNCjRElU1tcZNcXwue2mYSPcJYYjGeyuc",
+            authDomain: "sensordataapp-13d9a.firebaseapp.com",
+            databaseURL: "https://sensordataapp-13d9a-default-rtdb.firebaseio.com/",
+            projectId: "sensordataapp-13d9a",
+            storageBucket: "sensordataapp-13d9a.appspot.com",
+            messagingSenderId: "277009993146",
+            appId: "1:277009993146:web:24f20cb75d28983aa82183",
+            measurementId: "G-LS920MYJHW"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var sensorRef = firebase.database().ref().child('sensorData');
+            var timestamps = [];
+            var humidity = [];
+            var temperature = [];
+            var heatIndex = [];
+            var motion = [];
+
+            // Initialize the plots
+            var humidityTrace = {
+                x: timestamps,
+                y: humidity,
+                mode: 'lines+markers',
+                type: 'scatter',
+                name: 'Humidity (%)'
+            };
+            var humidityLayout = {
+                title: 'Timestamp vs. Humidity',
+                xaxis: { title: 'Timestamp' },
+                yaxis: { title: 'Humidity (%)' }
+            };
+            Plotly.newPlot('humidityGraph', [humidityTrace], humidityLayout);
+
+            var temperatureTrace = {
+                x: timestamps,
+                y: temperature,
+                mode: 'lines+markers',
+                type: 'scatter',
+                name: 'Temperature (°C)'
+            };
+            var temperatureLayout = {
+                title: 'Timestamp vs. Temperature',
+                xaxis: { title: 'Timestamp' },
+                yaxis: { title: 'Temperature (°C)' }
+            };
+            Plotly.newPlot('temperatureGraph', [temperatureTrace], temperatureLayout);
+
+            var heatIndexTrace = {
+                x: timestamps,
+                y: heatIndex,
+                mode: 'lines+markers',
+                type: 'scatter',
+                name: 'Heat Index (°C)'
+            };
+            var heatIndexLayout = {
+                title: 'Timestamp vs. Heat Index',
+                xaxis: { title: 'Timestamp' },
+                yaxis: { title: 'Heat Index (°C)' }
+            };
+            Plotly.newPlot('heatIndexGraph', [heatIndexTrace], heatIndexLayout);
+
+            var motionTrace = {
+                x: timestamps,
+                y: motion,
+                mode: 'lines+markers',
+                type: 'scatter',
+                name: 'Motion Detection',
+                text: motion.map(val => val ? 'Motion detected' : 'No motion'),
+                hoverinfo: 'text'
+            };
+            var motionLayout = {
+                title: 'Timestamp vs. Motion Detection',
+                xaxis: { title: 'Timestamp' },
+                yaxis: {
+                    title: 'Motion Detection',
+                    tickvals: [0, 1],
+                    ticktext: ['No motion', 'Motion detected']
+                }
+            };
+            Plotly.newPlot('motionGraph', [motionTrace], motionLayout);
+
+            sensorRef.on("value", function(snapshot) {
+                var sensorData = snapshot.val();
+                timestamps = [];
+                humidity = [];
+                temperature = [];
+                heatIndex = [];
+                motion = [];
+
+                for (var key in sensorData) {
+                    if (sensorData.hasOwnProperty(key)) {
+                        var data = sensorData[key];
+                        var formattedTimestamp = formatTimestamp(data.timestamp);
+                        timestamps.push(formattedTimestamp);
+                        humidity.push(data.humidity);
+                        temperature.push(data.temperature);
+                        heatIndex.push(data.heatIndex);
+                        motion.push(data.pir ? 1 : 0); // Motion detected: 1, No motion: 0
+                    }
+                }
+
+                // Keep only the last 10 data points
+                if (timestamps.length > 10) {
+                    timestamps = timestamps.slice(-10);
+                    humidity = humidity.slice(-10);
+                    temperature = temperature.slice(-10);
+                    heatIndex = heatIndex.slice(-10);
+                    motion = motion.slice(-10);
+                }
+
+                // Update Humidity Graph
+                Plotly.restyle('humidityGraph', 'x', [timestamps]);
+                Plotly.restyle('humidityGraph', 'y', [humidity]);
+
+                // Update Temperature Graph
+                Plotly.restyle('temperatureGraph', 'x', [timestamps]);
+                Plotly.restyle('temperatureGraph', 'y', [temperature]);
+
+                // Update Heat Index Graph
+                Plotly.restyle('heatIndexGraph', 'x', [timestamps]);
+                Plotly.restyle('heatIndexGraph', 'y', [heatIndex]);
+
+                // Update Motion Graph
+                Plotly.restyle('motionGraph', 'x', [timestamps]);
+                Plotly.restyle('motionGraph', 'y', [motion]);
+                Plotly.restyle('motionGraph', 'text', [motion.map(val => val ? 'Motion detected' : 'No motion')]);
+            });
+
+            function formatTimestamp(timestamp) {
+                // Format: Date: 2024-05-18 Time:20:45:43
+                var parts = timestamp.split(' ');
+                var datePart = parts[1];
+                var timePart = parts[2];
+                return datePart + ' ' + timePart;
+            }
+        });
+    </script>
+</body>
+</html>
