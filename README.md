@@ -45,7 +45,7 @@
     - [Mega Arduino with Motion Sensor](#mega-arduino-with-motion-sensor)
 - [Predicting Temperature](#predicting-temperature)
 - [Summary](#summary)
-- [The Bot](#bot)
+- [The Bot](#the-bot)
 
 ## Motivation
 
