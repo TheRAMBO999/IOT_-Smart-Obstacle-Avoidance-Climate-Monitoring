@@ -156,4 +156,4 @@ The smart vacuum cleaner integrates multiple components with the Mega Arduino to
 `password`: `123456`
 
 ## The Vehicle
-
+![Vehicle 1](vehicle_1.jpg)
