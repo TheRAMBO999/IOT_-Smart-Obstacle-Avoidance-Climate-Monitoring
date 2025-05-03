@@ -41,8 +41,8 @@
     - [Mega Arduino with Ultrasonic Sensor](#mega-arduino-with-ultrasonic-sensor)
     - [Mega Arduino with Servo Motor](#mega-arduino-with-servo-motor)
     - [Mega Arduino with L298N](#mega-arduino-with-l298n)
-    - [Mega Arduino with Humidity Sensor](#mega-arduino-with-humidity-sensor)
-    - [Mega Arduino with Motion Sensor](#mega-arduino-with-motion-sensor)
+    - [Raspberry Pi Pico with Humidity Sensor](#raspberry-pi-pico-with-humidity-sensor)
+    - [Raspberry Pi Pico with Motion Sensor](#raspberry-pi-pico-with-motion-sensor)
 - [Predicting Temperature](#predicting-temperature)
 - [Summary](#summary)
 - [The Bot](#the-bot)
@@ -133,12 +133,12 @@ Real-time environmental data enables users to monitor indoor conditions remotely
 - **Description:** The L298N motor driver is used to control the DC motors. It interfaces with the Mega Arduino to manage motor speed and direction.
 - **Usage:** Ensures efficient motor control and provides the necessary power for movement.
 
-#### Mega Arduino with Humidity Sensor
+#### Raspberry Pi Pico with Humidity Sensor
 ![Humidity Sensor](https://github.com/Leonallr10/IOT_obstacles-avoidance-/assets/118210551/b80d1936-c451-4043-8f0a-e365ecbaf27a)
 - **Description:** The humidity sensor is connected to the Mega Arduino to measure the humidity levels in the environment.
 - **Usage:** Monitors environmental conditions to maintain optimal cleaning performance and comfort.
 
-#### Mega Arduino with Motion Sensor
+#### Raspberry Pi Pico with Motion Sensor
 ![Motion Sensor](https://github.com/Leonallr10/IOT_obstacles-avoidance-/assets/118210551/2ff5d36a-0ef7-4883-87da-7a69654ccce7)
 - **Description:** This setup includes a motion sensor connected to the Mega Arduino to detect movement in the area.
 - **Usage:** Enhances security by detecting intruders and can adjust cleaning schedules based on room occupancy.
