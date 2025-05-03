@@ -45,6 +45,7 @@
     - [Mega Arduino with Motion Sensor](#mega-arduino-with-motion-sensor)
 - [Predicting Temperature](#predicting-temperature)
 - [Summary](#summary)
+- [The Vehicle](#vehicle)
 
 ## Motivation
 
@@ -153,3 +154,6 @@ The smart vacuum cleaner integrates multiple components with the Mega Arduino to
 `Username`: `leonal`
 
 `password`: `123456`
+
+## The Vehicle
+
